@@ -2,17 +2,17 @@
 
 Render a [**jrnl.sh**](https://jrnl.sh) journal as a static site. LiveJrnl uses [Jinja](https://github.com/pallets/jinja) for templating. Inspired by [jrnl-render](https://github.com/sloria/jrnl-render).
 
-Why the name LiveJrnl? I was feeling nostalgic for LiveJournal circa 2004 and wanted to recreate that experience. I've used `jrnl` for a few years now and simply love the simplicity of it. I also like puns and wordplay.
+Why the name LiveJrnl? I was feeling nostalgic for LiveJournal circa 2004 and wanted to recreate that experience. I've used `jrnl` for a few years now for jotting down small thoughts and simply love the simplicity of it. I also like puns and wordplay.
 
 ## Disclaimer
-Using this project kinda emulates the open source experience of 2004. Its gonna be clunky to use on its own. The good thing is, it mostly follows the [Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) by only doing one thing - generate files based on the json output from `jrnl`. If you use a build script, you're gonna have a good time.
+This project mostly follows the [Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) by only doing one thing - generate files based on the json output from `jrnl`. If you use a build script to build your site, you're gonna have a good time.
 
-There's also no real error checking. Make sure all of your paths are writeable, your journal is accessible and populated, and don't be an idiot running this as root.
+There's also no real error checking. Make sure all of your paths are writeable, your journal is accessible and populated, and please don't be an idiot by running this as root.
 
 ## Install
 
 * Clone the repository and open the folder
-* Create a virtual environment `virtualenv -p python3 env`
+* Create a virtual environment `python -m venv env`
 * Activate `source env/bin/activate`
 * Install requirements `pip install -r requirements.txt`
 * Deactivate `deactivate`
@@ -27,23 +27,17 @@ To view my personal build script that builds the site, RSS feed, and CSS, you ca
 
 ## Templates
 
-The following files **must** be present in the template directory:
-
-| Input File            | Output File  |
-| --------------------- | ------------ |
-| `index.html.template` | `index.html` |
-| `feed.xml.template`   | `feed.xml`   |
-
 All features of [Jinja](https://github.com/pallets/jinja) are available with no restrictions, even extensions!
-
 
 ### Template Variables
 
 The template variables LiveJrnl uses are:
 
-| Variable        | Type  | Description         |
-| --------------- | ----- | ------------------- |
-| `{{ entries }}` | Array | The list of entries |
+| Variable              | Type       | Description                                  |
+| --------------------- | ---------- | -------------------------------------------- |
+| `{{ entries }}`       | Array      | The list of entries                          |
+| `{{ config }}`        | Dictionary | Additional configuration variables           |
+| `{{ config.cutoff }}` | Integer    | The maximum number of entry items to display |
 
 The template variables for individual entries are:
 
@@ -54,9 +48,7 @@ The template variables for individual entries are:
 | `{{ entry.time }}`  | String | The time stamp of the entry |
 | `{{ entry.body }}`  | String | The contents of the entry   |
 
-These also work for the RSS template.
-
-## Example
+### Example
 
 Print a list of entries and their contents, beginning with the newest:
 
@@ -68,6 +60,28 @@ Print a list of entries and their contents, beginning with the newest:
 	</br>
 {% endfor %}
 ```
+
+## Configuration
+
+You can pass a JSON configuration file to the script with some variables your template can use.
+You can access them by using `{{ config.key_name }}` in your template
+
+If no configuration is passed, LiveJrnl uses the following defaults:
+
+```
+{
+	"title": "Welcome to my LiveJrnl",
+	"base_url": "https://localhost",
+	"description": "Write a bit about your website here.",
+	"author": "Ashley Robin",
+	"author_link": "https://localhost/arobin",
+	"year": "2023",
+	"language": "en",
+	"rss_language": "en-gb"
+}
+```
+
+For convenience, I've included [a sample config file](config.json.sample) that you can edit.
 
 ## Known Issues
 
