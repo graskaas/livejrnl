@@ -1,0 +1,13 @@
+arrow==1.2.3
+beautifulsoup4==4.11.2
+jinja-markdown==1.210911
+Jinja2==3.1.2
+jinja2-time==0.2.0
+Markdown==3.4.1
+MarkupSafe==2.1.2
+Pygments==2.14.0
+pymdown-extensions==9.9.2
+python-dateutil==2.8.2
+six==1.16.0
+soupsieve==2.3.2.post1
+strip-markdown==1.3
