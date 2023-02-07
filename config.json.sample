@@ -1,0 +1,10 @@
+{
+	"title": "Welcome to my LiveJrnl",
+	"base_url": "https://localhost",
+	"description": "Write a bit about your website here.",
+	"author": "Ashley Robin",
+	"author_link": "https://localhost/arobin",
+	"year": "2023",
+	"language": "en",
+	"rss_language": "en-gb"
+}
